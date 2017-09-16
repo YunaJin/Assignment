@@ -1,0 +1,397 @@
+1。Problem :. Hiking
+    1.1. Rent a ReachNow to drive to mountain rainier on weekends with friends
+        Things :
+        	Consumer (phone user) :
+        	Data: Name, Address, Phone,email, drivingLicense
+        	Behaviors : login,searchcar, reserve, unlock, drive, park, lock. drive
+        	AppReachnow
+        	Data : adress,distanceOfCar,walkingtimeEstimation,cars[],payment methods
+        	Behaviors : caculating distance of car and walkingtime,unlock,lock
+            sort, display
+            CreditCard
+        	Data : Number, name, company, expiry, security code
+        	Behavior :
+        	CreditCardCompany
+        	Behavior : authorizeTransaction
+
+
+        	Sequence of invoking behaviors on Objects:
+        	Reachnow:
+        	Consumer Yuna,
+            App Reachnow,
+            Reservecar cars,
+            Unlockcar unlock,
+            lockcar lock,
+            CreditCard card,
+            CreditCarCompany visa
+            OrderConfirmation response
+        	1.reserve car
+        	Drivelicense=yuna.drivelicenseNumber
+        	Zipcode=current.zipcode
+            distance=int[selectedcar.yunaCurrentAddressFt]
+
+        	input Drivelicense
+        	    if Drivelicense is valid,
+                    input:Zipcode
+                        if cars.isAvalible[] is null
+                        print:"No car current avalible"
+                        else,
+                        return cars.isAvalible[]
+                    yuna.selectedcar -> yuna.reserveCar
+                    if time.yuna.reserveCar > 30
+                        cancel reservation
+                    else,
+                        break
+                else,
+                Print:"We can not verify your information"
+
+        	2.unlock and start engin
+        	yuna.unlock
+        	if distance < 300
+        	   return unlock
+        	else,
+        	print:"please unlock while you within 300ft."
+        	input:Pincode
+        	if Pincode is correct,
+        	    start carSystem
+        	else,
+        	    print:"invalid pincode."
+
+
+        	3.park and lock
+        	yuna.park= Parktime
+        	yuna.lock->
+        	if distance < 300
+               return lock
+               creditCard->,card number, billing address,name-> company authorizing
+               If Response=approved
+               Trip.end
+
+            else,
+               print:"please unlock while you within 300ft."
+
+            4.fee calculating
+            DT=int[drivingTime]
+            PT=int[parkingTime]
+            drive=DT*40
+            park=PT*30
+            insurance=1
+            tax=(drive+park)*10%
+            total=(drive+park+insurance+tax)/100
+            return total + "dollars"
+
+
+    1.2. Buy the ticket to get into the park
+        Things :
+        	Consumer (Internet Shopper) :
+        	Data: Name, Address, Phone，email
+        	Behaviors : search, add, cancel, buy
+        	Internet
+        	Data : collection of websites, parkwebsite
+        	Behaviors : display, tranfer
+        	ParkWebsite
+        	Data : URL, Tickets[],introductions, contacts, BankAccount
+        	Behaviors :  sort, display, SelltheTickets, showOrderconformation
+        	Ticket
+        	Data : Price, age, expiretime
+        	Behavior:
+        	CreditCard
+        	Data : Number, name, company, expiry, security code
+        	Behavior :
+        	CreditCardCompany
+        	Behavior : authorizeTransaction
+
+        	Sequence of invoking behaviors on Objects:
+        	Consumer Yuna,
+            Internet internet,
+            ParkWebsite parkweb,
+            BookTickets tickets,
+            CreditCard card,
+            CreditCarCompany visa
+            OrderConfirmation response
+            If Internet.isAvailable
+                Yuna.searchInInternet -> internet, question : parkwebsite
+                //Yuna.findpark website -> Parkwebsite-> Tickets
+                input adultAmount,
+                input ChildrenAmount,
+                AA=AdultAmount,
+                CA=ChildrenAmount,
+                AF=AdultFee
+                CF=ChildrenFee,
+                Tax=(AA*AF+CA*CF)*0.1
+                Total=(AA*AF)+(CA*CF)+Tax
+                return Total + "dollars"
+                Yuna.selectedPaymentmethod->creditCard->,card number, billing address,name-> company authorizing
+                If Response=approved,
+                return ConformationCode
+                print:"Thanks for booking!"
+            else,
+            Recheck.internet
+
+
+
+    1.3. Book a hotel or check in the hotel.
+        Things :
+                	Consumer (phone user) :
+                	Data: Name, Address, Phone,email
+                	Behaviors : search, compare, book, cancel
+                	AppHotels
+                	Data : collection of hotelResource,payment methods
+                	Behaviors : caculating distance, take reservations,sort, display
+                	Rooms
+                	Data: roomsize, price, limitation, beds
+                	behavior
+                    CreditCard
+                	Data : Number, name, company, expiry, security code
+                	Behavior :
+                	CreditCardCompany
+                	Behavior : authorizeTransaction
+
+         Sequence of invoking behaviors on Objects:
+         Consumer Yuna,
+         App Hotels.com,
+         Bookrooms rooms,
+         CreditCard card,
+         CreditCarCompany visa
+         OrderConfirmation response
+         Yuna.loginin
+         hotel.zipcode
+         hotel.rooms
+         hotel.price
+         Yuna.peopleAmount
+         Yuna.rooms
+         Yuna.checkinDate
+         Yuna.checkoutDate
+
+
+
+         YP=Yuna.peopleAmount
+         YR=Yuna.rooms
+         HR=hotel.rooms
+         Zipcode=hotel.zipcode
+         tax=(Days*hotel.price)*0.1
+         input zipcode,YP,YR,HR,Yuna.checkinDate,Yuna.checkoutDate
+         return Hotels.avalible[]
+         if Hotels.avalible[] is null,
+            print:"no hotels currently avalible."
+         else,
+            Yuna.selectHotel->hotel.price
+            Days=Yuna.checkoutDate-Yuna.checkinDate
+            Total= Days*hotel.price+tax
+            return total
+            Yuna.selectedPaymentmethod->creditCard->,card number, billing address,name-> company authorizing
+                If Response=approved,
+                return ConformationCode
+                print:"Thanks for booking!"
+
+
+
+2. Organise a career fair(Suppose you are the organiser)
+    things:
+
+    2.1 set up resources
+
+        2.11 rent place
+        Borrower(organizer)
+        Data: name, email, phone,address
+        Behavior:search,compare,rent
+        Seller(ownerofPlace)
+        Data: name, email, phone,address, placeowned
+        Behavior:lent hall
+        Internet
+        Data : collection of conference hall websites
+        Behaviors : display, tranfer
+        ConferencehallWebsites
+                    Data : URL, conferencehall[],introductions, contacts, BankAccount
+                    Behaviors :  sort, display,placeorder
+
+        Sequence of invoking behaviors on Objects:
+        Borrower Yuna
+        Internet internet
+        RentWebsite Craglist
+        CreditCard card,
+        CreditCarCompany visa
+        OrderConfirmation response
+        If Internet.isAvailable
+        Yuna.searchInInternet -> internet, question :rent conferenceHall in seattle
+        Yuna.selectCraglist->Yuna.login->
+        input hall.size , event, date
+            returns ConferenceHall.isAvalible[]
+        ->Yuna.selectedlender
+        Select.PaymentType-> Creditcard
+            creditCard->,card number, billing address,name-> company authorizing
+            If Response=approved
+                ->transfer to ConformationPage
+
+
+        2.12 set up conference hall
+        Buyer(organizer)
+        Data: name, email, phone,address
+        Behavior:search,compare,buy
+        sponsor(company)
+        Data:resource,money
+        Behavior:lend needed resource, advertisement
+        Resource
+        Data:table,chairs,decorations,electronics,paperwork
+        Behavior:
+        volunteer
+        Data:name, email, phone, age
+        Behavior: help set up the conference hall, host, guide
+
+        Sequence of invoking behaviors on Objects:
+        Buyer Yuna
+        sponsor company
+        Yuna.askForResources->Sponsor.receieveRequest->ResourcesDelivered->volunteer help set up the conference hall
+
+
+
+    2.2 registration
+
+    employer
+        Data:name, email, company, job, phone
+        Behavior:interview, receive resume,post,
+    jobseeker
+        Data:name, email,resume，phone, work experience, age
+        Behavior:post resumes, apply for job opening, accept, reject
+    volunteer
+        Data:name, email, phone, age
+        Behavior: search, apply, accept, reject
+
+
+        Sequence of invoking behaviors on Objects:
+        Employer.information->employer.intableofOwnCompany->employer.receiveResume
+        ->EmployerInterview->Employer.decide
+        Jobseeker.information->Jobseeker.intableofWantedCompany->Jobseeker.Resume
+                ->Jobseeker.Interview->accept or reject
+        volunteer.information->applyforsetupConferenceHall
+
+
+
+
+3.Problem :order pizza from pizza hut:
+
+	Things :
+	Consumer (Internet Shopper) :
+	Data: Name, Address, Phone
+	Behaviors : search, add, cancel, order
+	Internet
+	Data : pizzahut website
+	Behaviors : provide collections of in-site websites for food,delivery
+	FoodWebsite
+	Data : URL, Product[] BankAccount
+	Behaviors :  sort, display, placeTheOrder,deliveryInformation
+	Food
+	Data : Price, size, sauces, addson
+	Behavior:
+	CreditCard
+	Data : Number, name, company, expiry, security code
+	Behavior :
+	CreditCardCompany
+	Behavior : authorizeTransaction
+	Cash:
+	Data: amount of money
+	Behavior:
+
+
+	Sequence of invoking behaviors on Objects:
+	BuyPizzahut:
+	Consumer Yuna,
+	Internet internet,
+	FoodWebsite Pizzhut,
+	OrderPizza pizza,
+	CreditCard card,
+	CreditCarCompany visa
+	OrderConfirmation response
+	If Internet.isAvailable
+	Yuna.searchInInternet -> internet, question : PizzaHuts website
+	//Yuna.findPizzaHuts website -> FoodWebsites : Pizzahuts.com
+	PizzaHuts= website
+	PizzaHuts.orderPizza-> size, sauces, adds-on
+	Yuna.orderPizza -> pizza
+	Payment-> creditCard, address,phonenumber, time of delivery
+	Or ->cash
+	response = deliveryConfirmation
+	Else
+	Yuna.re-order.
+
+4.sharing code from github
+   Things:
+
+   User
+   Data:username, email, informations of phone address, code
+   Behavior: edit,save,upload,downlodge, share, delet,login,logout
+   Internet
+   Data:github
+   Behavior:
+   github
+   Data:Data : URL, code, collections of user sharing
+   Behavior: give the platform to share or study
+   code
+   Data: code
+   Behavior:
+
+   Sequence of invoking behaviors on Objects:
+   User.Yuna login in -> edit code-> savingCode->Github.saveallStrings
+   ->Yuna.sharecode
+   If Yuna.sharecode is private
+        file locked
+   else,
+        file public
+
+
+
+5.Problems:Design a snacks vending machine.
+    Things :
+    Consumer (Shopper) :
+    Data:
+    Behaviors :choose, decide the amount of buying, buy
+
+    Vending machine
+    Data : snacks[], price, amount of product, ensure money value of products, sell,
+    Behaviors : show the type of food, sell the food, drop the food
+
+    Credit card
+    Data : Number, name, company, expiry, security code
+    Behavior :
+
+    CreditCardCompany
+    Behavior : authorizeTransaction
+
+    Cash
+    Data :amount
+    Behavior:
+
+
+    Sequence of invoking behaviors on Objects:
+    BuyonVendingmachine:
+    Consumer Yuna,
+    No.snack=int[Yuna.SelectedAmount]
+    Am.snack=int[vending.leftAmount]
+    Cash=int[cash.inserted]
+    Price=int[Price.Snacks]
+
+    Yuna.Choose.snacks->Yuna.SelectedAmount
+    input No.snack:
+        If No.snack > Am.snack:
+                Print:"invalid amount"
+                input No.snack
+        else,
+        break
+    Select.PaymentType-> Creditcard or Cash
+            If Creditcard selected,
+            creditCard->,card number, billing address,name-> company authorizing
+                    If Response=approved
+                    VendingMachine-> drop the food.
+                    Else,
+                    Reselected paymentType.
+            Else,
+            CashPayment->
+            cashReturn=Cash-Price
+                    If Cash < Price,
+                            ->transaction failed ->Give back Cash
+                    Else,
+                    VendingMachine->drop the food
+                    Return cashReturn
+                    break
+
+
