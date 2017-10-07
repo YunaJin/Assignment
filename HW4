@@ -1,0 +1,153 @@
+//1
+public class licenseFormat {
+    public String formatting(String s, int k) {
+        StringBuilder ss = new StringBuilder();
+        int n=s.length();
+        for (int i = n - 1; i >= 0; i--)
+            if (s.charAt(i) != '-')
+                ss.append(n % (k + 1) == k ? '-' : "").append(s.charAt(i));
+        String lastString =ss.reverse().toString().toUpperCase();
+        System.out.println(lastString);
+        return lastString;
+    }
+    public static void main(String args[]){
+        licenseFormat lf= new licenseFormat();
+        lf.formatting("2-4A0r7-4k",3);
+    }
+}
+
+//2
+//3.
+public class IpAddress{
+    String ipAddress="234.12.6.23";
+    public String getDottedDecimal(){
+        System.out.println(ipAddress);
+        return ipAddress;
+
+    }
+    public String getOctet(int a){
+
+        String sPlit[] =ipAddress.split("\\.");
+        System.out.println(sPlit[a-1]);
+        return sPlit[a-1];
+        }
+
+
+    public static void main(String args[]){
+        IpAddress ip=new IpAddress();
+        ip.getDottedDecimal();
+        ip.getOctet(1);
+        ip.getOctet(3);
+    }
+}
+//4.
+//5
+public class IntRoman {
+    public static String intoRoman(int number) {
+        if (number < 1 || number > 3999)
+            return "Invalid Roman Number Value";
+        String s = "";
+        while (number >= 1000) {
+            s += "M";
+            number -= 1000;
+        }
+        while (number >= 900) {
+            s += "CM";
+            number -= 900;
+        }
+        while (number >= 500) {
+            s += "D";
+            number -= 500;
+        }
+        while (number >= 400) {
+            s += "CD";
+            number -= 400;
+        }
+        while (number >= 100) {
+            s += "C";
+            number -= 100;
+        }
+        while (number >= 90) {
+            s += "XC";
+            number -= 90;
+        }
+        while (number >= 50) {
+            s += "L";
+            number -= 50;
+        }
+        while (number >= 40) {
+            s += "XL";
+            number -= 40;
+        }
+        while (number >= 10) {
+            s += "X";
+            number -= 10;
+        }
+        while (number >= 9) {
+            s += "IX";
+            number -= 9;
+        }
+        while (number >= 5) {
+            s += "V";
+            number -= 5;
+        }
+        while (number >= 4) {
+            s += "IV";
+            number -= 4;
+        }
+        while (number >= 1) {
+            s += "I";
+            number -= 1;
+        }
+        return s;
+    }
+
+    public static void main(String args[]) {
+        System.out.println(IntRoman.intoRoman(1030));
+    }
+}
+//6.public class Median {
+    public double medianOfArrays(int[] A, int[] B) {
+        int m = A.length;
+        int n = B.length;
+        if (m > n) {
+            int[] a = A; A = B; B = a;
+            int b = m; m = n; n = b;
+        }
+        int iMin = 0, iMax = m, halfLen = (m + n + 1) / 2;
+        while (iMin <= iMax) {
+            int i = (iMin + iMax) / 2;
+            int j = halfLen - i;
+            if (i < iMax && B[j-1] > A[i]){
+                iMin = iMin + 1;
+            }
+            else if (i > iMin && A[i-1] > B[j]) {
+                iMax = iMax - 1;
+            }
+            else {
+                int maxLeft = 0;
+                if (i == 0) { maxLeft = B[j-1]; }
+                else if (j == 0) { maxLeft = A[i-1]; }
+                else { maxLeft = Math.max(A[i-1], B[j-1]); }
+                if ( (m + n) % 2 == 1 ) { return maxLeft; }
+
+                int minRight = 0;
+                if (i == m) { minRight = B[j]; }
+                else if (j == n) { minRight = A[i]; }
+                else { minRight = Math.min(B[j], A[i]); }
+
+                return (maxLeft + minRight) / 2.0;
+            }
+        }
+        return 0.0;
+    }
+    public static void main(String args[]){
+        Median median=new Median();
+        int[] listA={1,2,3};
+        int[] listB={2,3,4,5};
+        System.out.println(median.medianOfArrays(listA,listB));
+    }
+}
+
+
+
