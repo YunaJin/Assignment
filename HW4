@@ -17,6 +17,84 @@ public class licenseFormat {
 }
 
 //2
+class RockPaperScissorsGame{
+    public static void main(String args[]){
+        Scissors s = new Scissors(5);
+        Paper p = new Paper(7);
+        Rock r = new Rock(15);
+
+        System.out.println(s.fight(p) + " , "+ p.fight(s) );
+        System.out.println(p.fight(r) + " , "+ r.fight(p) );
+        System.out.println(r.fight(s) + " , "+ s.fight(r) );
+
+    }
+class Tool {
+    protected int strength;
+    protected char type;
+    public Tool(char type) {
+        this.type = type;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+}
+class Paper extends Tool {
+
+    public Paper(int strength) {
+        super('p');
+        setStrength(strength);
+    }
+
+    public boolean fight(Tool tool) {
+        if (tool.getClass().equals(Rock.class)) {
+            return 2 * strength > tool.strength;
+        } else if (tool.getClass().equals(Scissors.class)){
+            return !((Scissors) tool).fight(this);
+        } else {
+            return strength > tool.strength;
+        }
+
+    }
+}
+
+class Rock extends Tool {
+    public Rock(int strength) {
+        super('r');
+        setStrength(strength);
+    }
+
+    public boolean fight(Tool tool) {
+        if (tool.getClass().equals(Paper.class)) {
+            return !((Paper) tool).fight(this);
+        } else if (tool.getClass().equals(Scissors.class)){
+            return 2 * strength > tool.strength;
+        } else {
+            return strength > tool.strength;
+        }
+
+    }
+}
+
+class Scissors extends Tool {
+    public Scissors(int strength) {
+        super('s');
+        setStrength(strength);
+    }
+
+    public boolean fight(Tool tool) {
+        if (tool.getClass().equals(Paper.class)) {
+            return 2 * strength > tool.strength;
+        } else if (tool.getClass().equals(Rock.class)){
+            return !((Rock) tool).fight(this);
+        } else {
+            return strength > tool.strength;
+        }
+
+    }
+}
+}
+
 //3.
 public class IpAddress{
     String ipAddress="234.12.6.23";
@@ -41,6 +119,69 @@ public class IpAddress{
     }
 }
 //4.
+public class RegistrationSystem {
+    public static void main(String[] args) {
+        Student s = new Student("Yuna", 002);
+        Course c = new Course();
+        c.isFull();
+        c.getStudent();
+
+    }
+
+}
+class Student{
+    String studentName;
+    int id;
+
+    public void student(String name, int id) {
+        this.studentName = name;
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.studentName = name;
+    }
+
+    public String getName() {
+        return studentName;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+}
+class Course {
+    String courseName;
+    int number;
+    StringBuffer s = new StringBuffer();
+    String[] a;
+    int i = 0;
+
+    public void course(String name) {
+        this.courseName = name;
+    }
+
+    public String getStudent() {
+        String str = s.toString();
+        System.out.println(str);
+        return str;
+    }
+
+    public boolean isFull() {
+        if (number > 10) {
+            System.out.println("The " + courseName + " class is full");
+            return true;
+        } else {
+            System.out.println("The " + courseName + " class is not full");
+            return false;
+        }
+    }
+}
 //5
 public class IntRoman {
     public static String intoRoman(int number) {
