@@ -1,0 +1,211 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class HangmanGame {
+
+    private static String[] wordList = { "kiwi", "table", "love", "cat", "ukulele", "winter" ,"uncomfortable"};
+    private static String target = wordList[(int) (Math.random() * wordList.length)];
+    private static int count = 0;
+    private static int countForMatch = 0;
+
+
+    public static void match(String inputWord, String target) {
+        count++;
+
+        if (inputWord.length() == target.length()) {
+            HashMap<Character, Integer> map = new HashMap();
+            String targetLowerCase = target.toLowerCase();
+            String inputWordLowerC = inputWord.toLowerCase();
+            for (int i = 0; i < targetLowerCase.length(); i++) {
+                char tmp = targetLowerCase.charAt(i);
+                if (map.containsKey(tmp)) {
+                    map.put(tmp, map.get(tmp) + 1);
+                } else {
+                    map.put(tmp, 1);
+                }
+            }
+            for (int i = 0; i < inputWordLowerC.length(); i++) {
+                char tmp = inputWordLowerC.charAt(i);
+                if (map.containsKey(tmp)) {
+                    if (map.get(tmp) == 1) {
+                        map.remove(tmp);
+                    } else {
+                        map.put(tmp, map.get(tmp) - 1);
+                    }
+                    countForMatch++;
+                } else {
+                    continue;
+                }
+            }
+            if (countForMatch == target.length()) {
+                System.out.println("You win");
+            }
+
+            ArrayList exactMatch = new ArrayList();
+            for (int i = 0; i < targetLowerCase.length(); i++) {
+                if (targetLowerCase.charAt(i) == inputWordLowerC.charAt(i)) {
+                    exactMatch.add(targetLowerCase.charAt(i));
+                } else {
+                    exactMatch.add("*");
+                }
+            }
+            System.out.println(exactMatch);
+        } else if (inputWord.length() < target.length()) {
+
+            String targetLowerCase = target.toLowerCase();
+            String inputWordLowerC = inputWord.toLowerCase();
+
+            StringBuffer sb = new StringBuffer();
+            sb.append(inputWord);
+            for (int i = 0; i < target.length() - inputWord.length(); i++) {
+                sb.append("*");
+            }
+            ArrayList exactMatch = new ArrayList();
+            for (int i = 0; i < targetLowerCase.length(); i++) {
+                if (targetLowerCase.charAt(i) == sb.charAt(i)) {
+                    exactMatch.add(targetLowerCase.charAt(i));
+                } else {
+                    exactMatch.add("*");
+                }
+            }
+            System.out.println(exactMatch);
+
+
+        }
+        if(countForMatch != target.length()){
+
+            if (count == 1) {
+                System.out.println("Wrong guess, try again");
+                System.out.println("   ____________");
+                System.out.println("   |          |");
+                System.out.println("   |          O ");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("   | ");
+                System.out.println("___|___");
+            }
+            if (count == 2) {
+                System.out.println("Wrong guess, try again");
+                System.out.println("   ____________");
+                System.out.println("   |          |");
+                System.out.println("   |          O");
+                System.out.println("   |          |");
+                System.out.println("   |          |");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("   | ");
+                System.out.println("___|___");
+            }
+            if (count == 3) {
+                System.out.println("Wrong guess, try again");
+                System.out.println("   ____________");
+                System.out.println("   |          |");
+                System.out.println("   |          O");
+                System.out.println("   |         /|");
+                System.out.println("   |          |");
+                System.out.println("   | ");
+                System.out.println("   |");
+                System.out.println("   | ");
+                System.out.println("___|___");
+            }
+            if (count == 4) {
+                System.out.println("Wrong guess, try again");
+                System.out.println("   ____________");
+                System.out.println("   |          |");
+                System.out.println("   |          O");
+                System.out.println("   |         /|\\");
+                System.out.println("   |          |");
+                System.out.println("   | ");
+                System.out.println("   |");
+                System.out.println("   | ");
+                System.out.println("___|___");
+            }
+            if (count == 5) {
+                System.out.println("Wrong guess, try again");
+                System.out.println("   ____________");
+                System.out.println("   |          |");
+                System.out.println("   |          O");
+                System.out.println("   |         /|\\");
+                System.out.println("   |          |");
+                System.out.println("   | ");
+                System.out.println("   |");
+                System.out.println("   | ");
+                System.out.println("___|___");
+            }
+            if (count == 6) {
+                System.out.println("Wrong guess, try again");
+                System.out.println("   ____________");
+                System.out.println("   |          |");
+                System.out.println("   |          O");
+                System.out.println("   |         /|\\");
+                System.out.println("   |          |");
+                System.out.println("   |         /");
+                System.out.println("   |");
+                System.out.println("   | ");
+                System.out.println("___|___");
+            }
+            if (count == 7) {
+                System.out.println("Wrong guess, try again");
+                System.out.println("   ____________");
+                System.out.println("   |          |");
+                System.out.println("   |          O");
+                System.out.println("   |         /|\\");
+                System.out.println("   |          |");
+                System.out.println("   |         / \\");
+                System.out.println("   |");
+                System.out.println("   | ");
+                System.out.println("___|___");
+            }
+            if (count == 8) {
+                System.out.println("Wrong guess, try again");
+                System.out.println("   ____________");
+                System.out.println("   |          |");
+                System.out.println("   |          O");
+                System.out.println("   |         /|\\");
+                System.out.println("   |          |");
+                System.out.println("   |         / \\");
+                System.out.println("   |        o");
+                System.out.println("   | ");
+                System.out.println("___|___");
+            }
+            if (count == 9) {
+                System.out.println("Wrong guess, try again");
+                System.out.println("   ____________");
+                System.out.println("   |          |");
+                System.out.println("   |          O");
+                System.out.println("   |         /|\\");
+                System.out.println("   |          |");
+                System.out.println("   |         / \\");
+                System.out.println("   |        o   o");
+                System.out.println("   | ");
+                System.out.println("___|___");
+            }}
+    }
+    public static boolean checkForLength(String inputWord, String target) {
+        if (inputWord.length() == target.length()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method
+        System.out.println("Please input your guess");
+        // System.out.println(target);
+        for (int i = 0; i < target.length(); i++) {
+            System.out.print("*");
+
+        }
+        for (int i = 0; i < 8; i++) {
+            Scanner sg = new Scanner(System.in);
+            String guess = sg.next();
+            match(guess, target);
+        }
+
+    }
+
+}
