@@ -67,6 +67,7 @@ public class Calculator {
         if (c == "add") {
             double finalAnswer=(a+b);
             System.out.println(finalAnswer);
+            // Why not just return finalAnswer
             return a + b;
         }
         if (c == "subtract") {
@@ -136,6 +137,7 @@ public class Quadratic {
         double qualification=(b*b-(4*a*c));
         double[] answer=new double[2];
         if (qualification>0){
+            // What if a == 0?
             answer[0]=((-b+sqrt(qualification))/(2*a));
             answer[1]=((-b-sqrt(qualification))/(2*a));
             System.out.println("X1="+answer[0]);
