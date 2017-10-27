@@ -1,0 +1,177 @@
+//1.//
+import java.util.ArrayList;
+
+public class ReverseEven {
+    public static void main(String args[]){
+
+    }
+    static void reverseEvenIndices(ArrayList originalList){
+        int arrysize= originalList.size();
+
+
+
+
+
+    }
+}
+
+//2.//
+public class StaircaseShape {
+    public int row(int n) {
+        int rowsNumber= (int)((-1 + Math.sqrt(1 + 8 * (long)n)) / 2);
+        System.out.println(rowsNumber);
+        return rowsNumber;
+    }
+    public static void main(String args[]){
+        StaircaseShape staircaseShape=new StaircaseShape();
+        staircaseShape.row(8);
+    }
+}
+
+//3//
+public class MinimumNumber {
+    public int minNum(int[] originalList) {
+
+        int result = 0;
+        int min = originalList[0];
+        int n=originalList.length;
+
+        for (int i = 1; i < n; i++)
+        {
+            if (originalList[i] < min){
+                result += i*(min - originalList[i]);
+                min = originalList[i];}
+            else
+            {
+                result += originalList[i] - min;
+            }
+        }
+        System.out.println(result);
+        return result;
+    }
+    public static void main(String args[]){
+        MinimumNumber minimumNumber=new MinimumNumber();
+        int[]numberList={1,2,3};
+        minimumNumber.minNum(numberList);
+    }
+
+
+}
+//4//
+public class PossibleWays {
+
+    public int numberOfWays(int n, int f, int k){
+
+        int P[][] = new int[n+1][k+1];
+        P[0][0] = 1;
+        for(int i=1; i <= n; i++){
+            for(int j =1; j <= i*f && j <= k ; j++){
+                if(j < i){
+                    continue;}
+                if(j == i){
+                    P[i][j] = 1;
+                    continue;
+                }
+                for(int l =1; l <=f ;l++){
+                    if(j >= l){
+                        P[i][j] += P[i-1][j-l];
+                    }
+                }
+            }
+        }
+        return P[n][k];
+    }
+
+    public static void main(String args[]){
+        PossibleWays dtw = new PossibleWays();
+        System.out.println(dtw.numberOfWays(4, 5, 5));
+    }
+}
+
+//5//
+public class Cell
+{
+    final int N = 4;
+
+
+    void printSolution(int sol[][])
+    {
+        for (int i = 0; i < N; i++)
+        {
+            for (int j = 0; j < N; j++)
+                System.out.print(" " + sol[i][j] +
+                        " ");
+            System.out.println();
+        }
+    }
+
+
+    boolean isSafe(int maze[][], int x, int y)
+    {
+
+        return (x >= 0 && x < N && y >= 0 &&
+                y < N && maze[x][y] == 1);
+    }
+
+
+    boolean solveMaze(int maze[][])
+    {
+        int sol[][] = {{0, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0}
+        };
+
+        if (solveMazeUtil(maze, 0, 0, sol) == false)
+        {
+            System.out.print("Solution doesn't exist");
+            return false;
+        }
+
+        printSolution(sol);
+        return true;
+    }
+
+    boolean solveMazeUtil(int maze[][], int x, int y,
+                          int sol[][])
+    {
+
+        if (x == N - 1 && y == N - 1)
+        {
+            sol[x][y] = 1;
+            System.out.println('['+x+','+y+']');
+            return true;
+        }
+
+
+        if (isSafe(maze, x, y) == true)
+        {
+
+            sol[x][y] = 1;
+
+
+            if (solveMazeUtil(maze, x + 1, y, sol))
+                return true;
+
+            if (solveMazeUtil(maze, x, y + 1, sol))
+                return true;
+
+            sol[x][y] = 0;
+            return false;
+        }
+
+        return false;
+    }
+
+    public static void main(String args[])
+    {
+        Cell rat = new Cell();
+        int maze[][] = {{1, 0, 0, 0},
+                {1, 1, 0, 1},
+                {0, 1, 0, 0},
+                {1, 1, 1, 1}
+        };
+        rat.solveMaze(maze);
+    }
+}
+
