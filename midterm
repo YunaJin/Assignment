@@ -89,89 +89,64 @@ public class PossibleWays {
 }
 
 //5//
-public class Cell
-{
-    final int N = 4;
-
-
-    void printSolution(int sol[][])
-    {
-        for (int i = 0; i < N; i++)
-        {
-            for (int j = 0; j < N; j++)
-                System.out.print(" " + sol[i][j] +
-                        " ");
-            System.out.println();
+class Coor{
+        int x;
+        int y;
+        public Coor (int x, int y) {
+            this.x = x;
+            this.y = y;
         }
     }
 
+    int[] dirX = new int[] {0, 1};
+    int[] dirY = new int[] {1, 0};
 
-    boolean isSafe(int maze[][], int x, int y)
-    {
-
-        return (x >= 0 && x < N && y >= 0 &&
-                y < N && maze[x][y] == 1);
+    public List<List<Integer>> findPath(int[][] matrix) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return result;
+        }
+        List<List<Coor>> res = new ArrayList<>();
+        List<Coor> path = new ArrayList<>();
+        path.add(new Cor(0, 0));
+        helper(matrix, path, res);
+        if (res.size() == 0) {
+            return result;
+        }
+        // we add print the first path
+        for (Coor p : res.get(0)) {
+            List<Integer> c = new ArrayList<>();
+            c.add(p.x);
+            c.add(p.y);
+            result.add(c);
+        }
+        return result;
     }
 
+    private void helper(int[][] matrix, List<Coor> path, List<List<Coor>> res) {
+        if (path.get(path.size() - 1).x == matrix.length - 1 && path.get(path.size() - 1).y == matrix[0].length - 1) {
+            res.add(new ArrayList<>(path));
+            return;
+        }
 
-    boolean solveMaze(int maze[][])
-    {
-        int sol[][] = {{0, 0, 0, 0},
-                {0, 0, 0, 0},
-                {0, 0, 0, 0},
-                {0, 0, 0, 0}
-        };
+        for (int i = 0; i < 2; i++) {
+            Coor curr = path.get(path.size() - 1);
+            int x = curr.x + dirX[i];
+            int y = curr.y + dirY[i];
+            if (valid(matrix, x, y) && matrix[x][y] == 1) {
+                path.add(new Coor(x, y));
+                helper(matrix, path, res);
+                path.remove(path.size() - 1);
+            }
+        }
+    }
 
-        if (solveMazeUtil(maze, 0, 0, sol) == false)
-        {
-            System.out.print("Solution doesn't exist");
+    private boolean valid(int[][] matrix, int x, int y) {
+        if (x < 0 || x >= matrix.length) {
             return false;
         }
-
-        printSolution(sol);
+        if (y < 0 || y >= matrix[0].length) {
+            return false;
+        }
         return true;
     }
-
-    boolean solveMazeUtil(int maze[][], int x, int y,
-                          int sol[][])
-    {
-
-        if (x == N - 1 && y == N - 1)
-        {
-            sol[x][y] = 1;
-            System.out.println('['+x+','+y+']');
-            return true;
-        }
-
-
-        if (isSafe(maze, x, y) == true)
-        {
-
-            sol[x][y] = 1;
-
-
-            if (solveMazeUtil(maze, x + 1, y, sol))
-                return true;
-
-            if (solveMazeUtil(maze, x, y + 1, sol))
-                return true;
-
-            sol[x][y] = 0;
-            return false;
-        }
-
-        return false;
-    }
-
-    public static void main(String args[])
-    {
-        Cell rat = new Cell();
-        int maze[][] = {{1, 0, 0, 0},
-                {1, 1, 0, 1},
-                {0, 1, 0, 0},
-                {1, 1, 1, 1}
-        };
-        rat.solveMaze(maze);
-    }
-}
-
