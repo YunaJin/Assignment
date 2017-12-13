@@ -187,6 +187,5 @@ public class LyricAnalyzer {
 
         ly.writeLyrics(new File("/Users/yzwang/IdeaProjects/wyzimplementfunction/src/main/java/result.txt"));
 
-
     }
 }
